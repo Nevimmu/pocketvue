@@ -1,0 +1,58 @@
+// Override global Sass variables from the /utilities folder
+@use 'bulma/sass/utilities' as ut with (
+	$family-primary: '"Montserrat", sans-serif',
+
+	// $orange: hsl(14, 100%, 53%),
+	// $yellow: hsl(42, 100%, 53%),
+	// $green: hsl(153, 53%, 53%),
+	// $turquoise: hsl(171, 100%, 41%),
+	// $cyan: hsl(198, 100%, 70%),
+	// $blue: hsl(233, 100%, 63%),
+	// $purple: hsl(271, 100%, 71%),
+	 // $red: hsl(348, 100%, 70%),
+);
+
+@use 'bulma/sass/utilities/initial-variables' as iv;
+
+@use 'bulma/sass/layout/footer' with (
+	$footer-padding: 1rem 1rem 1rem
+);
+
+@use 'bulma/sass/components/navbar' with (
+	$navbar-breakpoint: ut.$tablet
+);
+
+// Import components needed
+@forward 'bulma/sass/base';
+@forward 'bulma/sass/components/card';
+@forward 'bulma/sass/components/modal';
+@forward 'bulma/sass/utilities/mixins';
+@forward 'bulma/sass/components/menu';
+@forward 'bulma/sass/elements/button';
+@forward 'bulma/sass/elements/icon';
+@forward 'bulma/sass/elements/content';
+@forward 'bulma/sass/elements/notification';
+// @forward 'bulma/sass/elements/progress';
+@forward 'bulma/sass/elements/tag';
+@forward 'bulma/sass/elements/delete';
+@forward 'bulma/sass/elements/box';
+@forward 'bulma/sass/elements/title';
+@forward 'bulma/sass/layout/container';
+@forward 'bulma/sass/grid/columns';
+@forward 'bulma/sass/helpers/typography';
+@forward 'bulma/sass/helpers/flexbox';
+@forward 'bulma/sass/helpers/visibility';
+@forward 'bulma/sass/helpers/spacing';
+@forward 'bulma/sass/helpers/color';
+
+// Import themes
+@forward 'bulma/sass/themes';
+
+// Import the Google Font
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700');
+
+@media screen and (max-width: iv.$tablet) {
+	.p-0-mobile {
+		padding: 0;
+	}
+}

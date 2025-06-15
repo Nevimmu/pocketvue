@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: docker/frontend.Dockerfile
+      target: dev
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./frontend:/app
+    environment:
+      - VITE_POCKETBASE_URL=http://localhost:8090
+
+  backend:
+    build:
+      context: .
+      dockerfile: docker/backend.Dockerfile
+    ports:
+      - "8090:8090"
+    volumes:
+      - ./backend/pb_data:/pb/pb_data
+      - ./backend/pb_migrations/:/pb/pb_migrations
+    env_file: .env
