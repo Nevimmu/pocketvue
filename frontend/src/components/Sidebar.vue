@@ -14,7 +14,7 @@ onClickOutside(sidebarRef, () => {
 </script>
 
 <template>
-	<div class="sidebar has-background-grey" :class="{'is-open': sidebarStore.isOpen}" ref="sidebarRef">
+	<div class="sidebar has-background-grey is-100" :class="{'is-open': sidebarStore.isOpen}" ref="sidebarRef">
 		<aside class="menu">
 			<p class="menu-label">Menu</p>
 			<ul class="menu-list">
