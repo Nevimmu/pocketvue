@@ -2,7 +2,7 @@
 
 # Start PocketBase in background
 echo "Starting PocketBase..."
-/pb/pocketbase serve  --http=0.0.0.0:8090 &
+/pb/pocketbase serve --http=0.0.0.0:8090 &
 
 # Wait for PocketBase to be ready
 echo "Waiting for PocketBase to start..."
