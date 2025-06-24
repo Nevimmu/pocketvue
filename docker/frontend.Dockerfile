@@ -12,15 +12,14 @@ CMD ["npm", "run", "dev"]
 FROM node:lts as builder
 WORKDIR /app
 COPY frontend/package*.json ./
-RUN npm ci --omit=dev
-COPY frontend/src ./src
-COPY frontend/vite.config.js .
+RUN npm ci
+COPY frontend .
 RUN npm run build
+RUN npm prune --omit=dev
 
 # Stage 2: Production (Nginx)
 FROM nginx:alpine
 COPY --from=builder /app/dist /usr/share/nginx/html
 COPY frontend/nginx.conf /etc/nginx/conf.d/default.conf
-RUN chown -R nginx:nginx /usr/share/nginx/html
-USER nginx
 EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
