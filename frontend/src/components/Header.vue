@@ -28,7 +28,7 @@ function handleLogout() {
 				class="navbar-burger has-text-white"
 				aria-label="menu"
 				aria-expanded="false"
-				@click="sidebarStore.toggle({ isFromButton: true })"
+				@click="sidebarStore.toggle()"
 			>
 				<span aria-hidden="true"></span>
 				<span aria-hidden="true"></span>
