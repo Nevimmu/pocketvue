@@ -9,7 +9,7 @@ interface User {
 }
 
 export const useAuthStore = defineStore('auth', () => {
-	const pb = new PocketBase(import.meta.env.VITE_POCKETBASE_URL || '/')
+	const pb = new PocketBase()
 	const user = ref<User | null>(null)
 	const isAuthenticated = ref(false)
 	const loading = ref(false)

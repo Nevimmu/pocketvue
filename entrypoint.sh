@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Start PocketBase in background
-/pocketbase/pocketbase serve --http=0.0.0.0:8090 &
+/pocketbase/backend serve --http=0.0.0.0:8090 --dir=/pocketbase &
 
 # In development mode, also start Vite dev server
 if [ "$NODE_ENV" = "development" ]; then
@@ -17,7 +17,7 @@ done
 
 # Create admin user
 echo "Creating admin user..."
-/pocketbase/pocketbase superuser upsert "$PB_ADMIN_EMAIL" "$PB_ADMIN_PASSWORD"
+/pocketbase/backend superuser upsert "$PB_ADMIN_EMAIL" "$PB_ADMIN_PASSWORD"
 
 # Keep container running
 wait

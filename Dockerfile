@@ -7,16 +7,12 @@ COPY frontend .
 RUN npm run build
 
 # Stage 2: Prepare PocketBase
-FROM alpine:latest as pb-prepare
-ARG PB_VERSION=0.28.2
-RUN apk add --no-cache \
-    unzip \
-    wget \
-    ca-certificates
-# Download PocketBase
-RUN wget -O /tmp/pb.zip https://github.com/pocketbase/pocketbase/releases/download/v${PB_VERSION}/pocketbase_${PB_VERSION}_linux_amd64.zip && \
-    unzip /tmp/pb.zip -d /tmp/pb/ && \
-    mv /tmp/pb/pocketbase /pocketbase
+# TODO: compile main.go and use it for the backend 
+FROM golang:1.24-alpine as pb-prepare
+WORKDIR /pocketbase
+COPY backend/ ./
+# RUN go mod init backend && go mod tidy
+RUN go mod download && go build
 
 # Stage 3: Final image
 FROM node:18-alpine
