@@ -1,41 +1,42 @@
-# Stage 1: Build Vue.js application
-FROM node:18-alpine as vue-builder
+# Build Stage (Pocketbase)
+FROM golang:1.24-alpine as backend-builder
+WORKDIR /pocketbase
+COPY backend/go.mod backend/go.sum ./
+RUN go mod download
+COPY backend/ ./
+# Prod : build static binary
+ARG BUILD_ENV=prod
+RUN if [ "$BUILD_ENV" = "prod" ]; then \
+	go build -o /pocketbase . ; \
+	fi
+
+# Build Stage (Vue.js)
+FROM node:18-alpine as frontend-builder
 WORKDIR /web
 COPY frontend/package*.json ./
 RUN npm install
 COPY frontend .
-RUN npm run build
+ARG BUILD_ENV=prod
+RUN if [ "$BUILD_ENV" = "prod" ]; then \
+	npm run build ; \
+	fi
 
-# Stage 2: Prepare PocketBase
-# TODO: compile main.go and use it for the backend 
-FROM golang:1.24-alpine as pb-prepare
+# Dev stage
+FROM golang:1.24-alpine as dev
 WORKDIR /pocketbase
-COPY backend/ ./
-# RUN go mod init backend && go mod tidy
-RUN go mod download && go build
-
-# Stage 3: Final image
-FROM node:18-alpine
-# Install runtime dependencies
-RUN apk add --no-cache bash ca-certificates
-# Copy PocketBase binary
-COPY --from=pb-prepare /pocketbase/ /pocketbase/
-# Create directories
-RUN mkdir -p /pocketbase/pb_migrations /pocketbase/pb_public
-# Copy backend files
-COPY backend/pb_migrations /pocketbase/pb_migrations
-COPY backend/init-pb.sh /pocketbase/init-pb.sh
-RUN chmod +x /pocketbase/init-pb.sh
-# Copy built Vue app
-COPY --from=vue-builder /web/dist /pocketbase/pb_public
-# For development - copy source code (overridden by volume in dev)
-COPY frontend /web
-WORKDIR /web
-# Install dependencies
-RUN npm install
-# Entrypoint script
-COPY entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
+RUN apk add --no-cache nodejs npm
+RUN go install github.com/air-verse/air@latest
+COPY --from=backend-builder /pocketbase .
+COPY --from=frontend-builder /web /web
+COPY /backend/pb_data ./
 EXPOSE 8090 5173
+CMD ["sh", "-c", "air serve --http=0.0.0.0:8090 & cd /web && npm run dev -- --host 0.0.0.0"]
 
-ENTRYPOINT ["/entrypoint.sh"]
+# Prod stage
+FROM golang:1.24-alpine as prod
+WORKDIR /pocketbase
+COPY --from=backend-builder /pocketbase/backend .
+COPY --from=frontend-builder /web/dist /pocketbase/pb_public
+COPY backend/pb_migrations /pocketbase/pb_migrations
+EXPOSE 8090
+CMD ["/pocketbase/backend", "serve", "--http=0.0.0.0:8090"]

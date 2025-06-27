@@ -16,7 +16,6 @@ import (
 
 func main() {
 	app := pocketbase.New()
-	log.Println("Ahoy!")
 
 	var publicDir string
 	app.RootCmd.PersistentFlags().StringVar(
@@ -43,11 +42,6 @@ func main() {
 			return e.Next()
 		},
 		Priority: 999, // execute as latest as possible to allow users to provide their own route
-	})
-
-	// prints "Hello!" every 2 minutes
-	app.Cron().MustAdd("hello", "*/2 * * * *", func() {
-		log.Println("Hello!")
 	})
 
 	if err := app.Start(); err != nil {
