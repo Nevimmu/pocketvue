@@ -8,6 +8,8 @@ export async function authGuard(
 ) {
 	const authStore = useAuthStore()
 
+	await authStore.init()
+
 	if (to.meta.requiresAuth && !authStore.isAuthenticated) {
 		next('/login')
 	} else if (to.meta.requiresGuest && authStore.isAuthenticated) {
