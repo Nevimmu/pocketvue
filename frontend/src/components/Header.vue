@@ -13,7 +13,6 @@ function handleLogout() {
 	authStore.logout()
 	router.push('/login')
 }
-
 </script>
 
 <template>
@@ -40,9 +39,7 @@ function handleLogout() {
 		<div id="navbarBasicExample" class="navbar-menu">
 			<div class="navbar-end">
 				<div class="navbar-item">
-					<button class="button is-danger" @click="handleLogout">
-						logout
-					</button>
+					<button class="button is-danger" @click="handleLogout">logout</button>
 				</div>
 			</div>
 		</div>

@@ -1,7 +1,6 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import PocketBase from 'pocketbase'
-import { ClientResponseError } from 'pocketbase'
 
 interface User {
 	id: string
@@ -22,7 +21,7 @@ export const useAuthStore = defineStore('auth', () => {
 		try {
 			pb.authStore.clear()
 			pb.authStore.loadFromCookie(document.cookie)
-			
+
 			if (pb.authStore.isValid) {
 				await refreshUser()
 			}
