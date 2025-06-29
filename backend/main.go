@@ -8,14 +8,19 @@ import (
 	"path/filepath"
 	"strings"
 
+	// _ "backend/migrations" // Remove comment after the first migration
+
 	"github.com/pocketbase/pocketbase"
 	"github.com/pocketbase/pocketbase/apis"
 	"github.com/pocketbase/pocketbase/core"
+	"github.com/pocketbase/pocketbase/plugins/migratecmd"
 	"github.com/pocketbase/pocketbase/tools/hook"
 )
 
 func main() {
 	app := pocketbase.New()
+
+	isGoRun := strings.EqualFold(os.Getenv("BUILD"), "dev")
 
 	var publicDir string
 	app.RootCmd.PersistentFlags().StringVar(
@@ -24,6 +29,11 @@ func main() {
 		defaultPublicDir(),
 		"the directory to serve static files",
 	)
+
+	migratecmd.MustRegister(app, app.RootCmd, migratecmd.Config{
+		// enable auto creation of migration files when making collection changes in the Dashboard
+		Automigrate: isGoRun,
+	})
 
 	var indexFallback bool
 	app.RootCmd.PersistentFlags().BoolVar(

@@ -23,6 +23,7 @@ RUN if [ "$BUILD_ENV" = "prod" ]; then \
 
 # Dev stage
 FROM golang:1.24-alpine as dev
+ENV BUILD=dev
 WORKDIR /pocketbase
 RUN apk add --no-cache nodejs npm
 RUN go install github.com/air-verse/air@latest
@@ -37,6 +38,5 @@ FROM golang:1.24-alpine as prod
 WORKDIR /pocketbase
 COPY --from=backend-builder /pocketbase/backend .
 COPY --from=frontend-builder /web/dist /pocketbase/pb_public
-COPY backend/pb_migrations /pocketbase/pb_migrations
 EXPOSE 8090
 CMD ["/pocketbase/backend", "serve", "--http=0.0.0.0:8090"]
