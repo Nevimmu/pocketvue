@@ -33,6 +33,7 @@ func main() {
 	migratecmd.MustRegister(app, app.RootCmd, migratecmd.Config{
 		// enable auto creation of migration files when making collection changes in the Dashboard
 		Automigrate: isGoRun,
+		Dir:         "/pocketbase/migrations",
 	})
 
 	var indexFallback bool

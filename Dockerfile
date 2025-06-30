@@ -29,7 +29,6 @@ RUN apk add --no-cache nodejs npm
 RUN go install github.com/air-verse/air@latest
 COPY --from=backend-builder /pocketbase .
 COPY --from=frontend-builder /web /web
-COPY /backend/pb_data ./
 EXPOSE 8090 5173
 CMD ["sh", "-c", "air serve --http=0.0.0.0:8090 & cd /web && npm run dev -- --host 0.0.0.0"]
 
