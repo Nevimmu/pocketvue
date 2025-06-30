@@ -52,7 +52,7 @@ export const useAuthStore = defineStore('auth', () => {
 		}
 	}
 	// Register new user
-	async function register(email: string, password: string, username?: string) {
+	async function register(email: string, password: string, name?: string) {
 		loading.value = true
 		error.value = null
 
@@ -61,7 +61,7 @@ export const useAuthStore = defineStore('auth', () => {
 				email,
 				password,
 				passwordConfirm: password,
-				username,
+				name,
 			}
 
 			await pb.collection('users').create(data)
