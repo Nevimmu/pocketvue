@@ -1,5 +1,5 @@
 # Build Stage (Pocketbase)
-FROM golang:1.24-alpine as backend-builder
+FROM golang:1.24-alpine AS backend-builder
 WORKDIR /pocketbase
 COPY backend/go.mod backend/go.sum ./
 RUN go mod download
@@ -11,7 +11,7 @@ RUN if [ "$BUILD_ENV" = "prod" ]; then \
 	fi
 
 # Build Stage (Vue.js)
-FROM node:18-alpine as frontend-builder
+FROM node:18-alpine AS frontend-builder
 WORKDIR /web
 COPY frontend/package*.json ./
 RUN npm install
@@ -22,7 +22,7 @@ RUN if [ "$BUILD_ENV" = "prod" ]; then \
 	fi
 
 # Dev stage
-FROM golang:1.24-alpine as dev
+FROM golang:1.24-alpine AS dev
 ENV BUILD=dev
 WORKDIR /pocketbase
 RUN apk add --no-cache nodejs npm
@@ -33,7 +33,7 @@ EXPOSE 8090 5173
 CMD ["sh", "-c", "air serve --http=0.0.0.0:8090 & cd /web && npm run dev -- --host 0.0.0.0"]
 
 # Prod stage
-FROM golang:1.24-alpine as prod
+FROM golang:1.24-alpine AS prod
 WORKDIR /pocketbase
 COPY --from=backend-builder /pocketbase/backend .
 COPY --from=frontend-builder /web/dist /pocketbase/pb_public
