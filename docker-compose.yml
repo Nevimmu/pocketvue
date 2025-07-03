@@ -12,7 +12,7 @@ services:
       - "5173:5173"
     volumes:
       - ./backend:/pocketbase
-      - ./frontend:/web
+      - ./frontend/src:/web/src
     env_file:
       - .env
 
