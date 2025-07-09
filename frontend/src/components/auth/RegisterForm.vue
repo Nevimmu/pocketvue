@@ -82,7 +82,7 @@ const onSubmit = handleSubmit(async (values) => {
 				</FormField>
 			</CardContent>
 			<CardFooter class="flex flex-col">
-				<Button type="submit" class="cursor-pointer w-full">Login</Button>
+				<Button type="submit" class="cursor-pointer w-full">Register</Button>
 			</CardFooter>
 		</Card>
 	</form>
