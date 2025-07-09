@@ -1,34 +1,19 @@
 <script setup lang="ts">
-import { RouterView, useRouter } from 'vue-router'
+import { RouterView } from 'vue-router'
+import { SidebarInset, SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar'
+import AppSidebar from '@/components/sidebar/AppSidebar.vue'
 import { useAuthStore } from '@/stores/auth'
-import Sidebar from './components/Sidebar.vue'
-import FooterComponent from './components/FooterComponent.vue'
-import Header from './components/Header.vue'
 
 const authStore = useAuthStore()
-const router = useRouter()
 </script>
 
 <template>
-	<div class="grid-container">
-		<div class="columns">
-			<div class="column is-narrow p-0-mobile">
-				<Sidebar v-if="authStore.isAuthenticated" />
-			</div>
-			<div class="column">
-				<Header v-if="authStore.isAuthenticated" />
-				<RouterView />
-			</div>
-		</div>
-		<FooterComponent v-if="authStore.isAuthenticated" />
-	</div>
+	<SidebarProvider>
+		<AppSidebar v-if="authStore.isAuthenticated" />
+		<SidebarInset>
+			<RouterView />
+		</SidebarInset>
+	</SidebarProvider>
 </template>
 
-<style scoped>
-.grid-container {
-	grid-template-rows: 1fr auto;
-	grid-template-areas: 'content', 'footer';
-	display: grid;
-	min-height: 100vh;
-}
-</style>
+<style scoped></style>

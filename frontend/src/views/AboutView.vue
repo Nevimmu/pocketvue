@@ -1,5 +1,8 @@
+<script setup lang="ts">
+import AppHeader from '@/components/sidebar/AppHeader.vue'
+</script>
+
 <template>
-	<div>
-		<h1>This is an about page</h1>
-	</div>
+	<AppHeader title="About" />
+	<p>About page</p>
 </template>

@@ -11,7 +11,7 @@ export async function authGuard(
 	await authStore.init()
 
 	if (to.meta.requiresAuth && !authStore.isAuthenticated) {
-		next('/login')
+		next('/auth')
 	} else if (to.meta.requiresGuest && authStore.isAuthenticated) {
 		next('/')
 	} else {

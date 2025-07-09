@@ -1,9 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { authGuard } from './authGuard'
 import HomeView from '@/views/HomeView.vue'
-import LoginForm from '@/views/LoginForm.vue'
-import CreateUser from '@/views/CreateUser.vue'
 import AboutView from '@/views/AboutView.vue'
+import AuthView from '@/views/AuthView.vue'
 
 const router = createRouter({
 	history: createWebHistory(import.meta.env.BASE_URL),
@@ -15,15 +14,9 @@ const router = createRouter({
 			meta: { requiresAuth: true },
 		},
 		{
-			path: '/login',
-			name: 'Login',
-			component: LoginForm,
-			meta: { requiresGuest: true },
-		},
-		{
-			path: '/create',
-			name: 'Create user',
-			component: CreateUser,
+			path: '/auth',
+			name: 'Auth',
+			component: AuthView,
 			meta: { requiresGuest: true },
 		},
 		{
