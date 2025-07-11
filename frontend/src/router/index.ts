@@ -11,23 +11,35 @@ const router = createRouter({
 			path: '/',
 			name: 'home',
 			component: HomeView,
-			meta: { requiresAuth: true },
+			meta: { 
+				requiresAuth: true,
+				title: 'Home'
+			},
 		},
 		{
 			path: '/auth',
 			name: 'Auth',
 			component: AuthView,
-			meta: { requiresGuest: true },
+			meta: { 
+				requiresGuest: true,
+				title: 'Auth'
+			},
 		},
 		{
 			path: '/about',
 			name: 'about',
 			component: AboutView,
-			meta: { requiresAuth: true },
+			meta: { 
+				requiresAuth: true,
+				title: 'About'
+			},
 		},
 	],
 })
 
 router.beforeEach(authGuard)
+router.beforeEach((to, from) => {
+	document.title = `${to.meta.title}`
+})
 
 export default router
