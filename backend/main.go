@@ -8,7 +8,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	// _ "backend/migrations" // Remove comment after the first migration
+	_ "backend/migrations"
 
 	"github.com/pocketbase/pocketbase"
 	"github.com/pocketbase/pocketbase/apis"
