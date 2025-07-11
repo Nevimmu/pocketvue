@@ -41,7 +41,7 @@ const { handleSubmit, isFieldDirty } = useForm({
 const onSubmit = handleSubmit(async (values) => {
 	try {
 		await authStore.register(values.email, values.password, values.username)
-		router.push('/home')
+		router.push('/')
 	} catch (error) {
 		console.error(error)
 	}
