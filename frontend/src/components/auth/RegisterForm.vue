@@ -50,8 +50,8 @@ const onSubmit = handleSubmit(async (values) => {
 
 <template>
 	<form @submit.prevent="onSubmit">
-		<Card>
-			<CardContent>
+		<Card class="grid grid-cols-1 gap-2">
+			<CardContent class="grid grid-cols-1 gap-2">
 				<FormField v-slot="{ componentField }" name="email" :validate-on-blur="!isFieldDirty">
 					<FormLabel>Email</FormLabel>
 					<FormControl>
@@ -81,7 +81,7 @@ const onSubmit = handleSubmit(async (values) => {
 					</FormControl>
 				</FormField>
 			</CardContent>
-			<CardFooter class="flex flex-col">
+			<CardFooter>
 				<Button type="submit" class="cursor-pointer w-full">Register</Button>
 			</CardFooter>
 		</Card>

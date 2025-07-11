@@ -4,22 +4,16 @@ import { useRouter } from 'vue-router'
 import {
 	Card,
 	CardContent,
-	CardDescription,
 	CardFooter,
-	CardHeader,
-	CardTitle,
 } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import {
 	FormControl,
-	FormDescription,
 	FormField,
-	FormItem,
 	FormLabel,
-	FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { useForm } from 'vee-validate'
+import { ErrorMessage, useForm } from 'vee-validate'
 import { toTypedSchema } from '@vee-validate/zod'
 import * as z from 'zod'
 
@@ -49,8 +43,8 @@ const onSubmit = handleSubmit(async (values) => {
 
 <template>
 	<form @submit="onSubmit">
-		<Card>
-			<CardContent>
+		<Card class="grid grid-cols-1 gap-2">
+			<CardContent class="grid grid-cols-1 gap-2">
 				<FormField v-slot="{ componentField }" name="email" :validate-on-blur="!isFieldDirty">
 					<FormLabel>Email</FormLabel>
 					<FormControl>
@@ -66,7 +60,7 @@ const onSubmit = handleSubmit(async (values) => {
 					</FormControl>
 				</FormField>
 			</CardContent>
-			<CardFooter class="flex flex-col">
+			<CardFooter>
 				<p v-if="authStore.error" class="text-red-600 font-bold">Couldn't login</p>
 				<Button type="submit" class="cursor-pointer w-full">Login</Button>
 			</CardFooter>
