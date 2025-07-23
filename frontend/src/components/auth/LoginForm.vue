@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button'
 import {
 	FormControl,
 	FormField,
+	FormItem,
 	FormLabel,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
@@ -46,18 +47,22 @@ const onSubmit = handleSubmit(async (values) => {
 		<Card class="grid grid-cols-1 gap-2">
 			<CardContent class="grid grid-cols-1 gap-2">
 				<FormField v-slot="{ componentField }" name="email" :validate-on-blur="!isFieldDirty">
-					<FormLabel>Email</FormLabel>
-					<FormControl>
-						<Input type="email" v-bind="componentField" />
-						<ErrorMessage name="email" class="text-red-600" />
-					</FormControl>
+					<FormItem>
+						<FormLabel>Email</FormLabel>
+						<FormControl>
+							<Input type="email" v-bind="componentField" />
+							<ErrorMessage name="email" class="text-red-600" />
+						</FormControl>
+					</FormItem>
 				</FormField>
 				<FormField v-slot="{ componentField }" name="password" :validate-on-blur="!isFieldDirty">
-					<FormLabel>Password</FormLabel>
-					<FormControl>
-						<Input type="password" v-bind="componentField" />
-						<ErrorMessage name="password" class="text-red-600" />
-					</FormControl>
+					<FormItem>
+						<FormLabel>Password</FormLabel>
+						<FormControl>
+							<Input type="password" v-bind="componentField" />
+							<ErrorMessage name="password" class="text-red-600" />
+						</FormControl>
+					</FormItem>
 				</FormField>
 			</CardContent>
 			<CardFooter>
