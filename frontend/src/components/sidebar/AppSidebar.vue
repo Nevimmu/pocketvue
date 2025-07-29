@@ -12,6 +12,7 @@ import {
 	SidebarMenuButton,
 } from '@/components/ui/sidebar'
 import { House, Info } from 'lucide-vue-next'
+import DarkMode from './DarkMode.vue'
 import { Button } from '@/components/ui/button'
 import { RouterLink } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
@@ -60,11 +61,12 @@ function handleLogout() {
 		</SidebarContent>
 		<SidebarFooter class="group-data-[collapsible=icon]:hidden">
 			<SidebarMenu>
-				<SidebarMenuItem>
+				<SidebarMenuItem class="flex gap-2">
+					<DarkMode />
 					<Button
 						variant="ghost"
 						@click="handleLogout"
-						class="w-full text-red-400 hover:text-red-600"
+						class="flex-auto text-red-400 hover:text-red-600"
 						>Logout</Button
 					>
 				</SidebarMenuItem>

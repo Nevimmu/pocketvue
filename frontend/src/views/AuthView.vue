@@ -2,6 +2,9 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import LoginForm from '@/components/auth/LoginForm.vue'
 import RegisterForm from '@/components/auth/RegisterForm.vue'
+import { useColorMode } from '@vueuse/core'
+
+useColorMode({ storageKey: 'vueuse-color-scheme' }) 
 </script>
 
 <template>
